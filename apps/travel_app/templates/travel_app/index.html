@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Travel Dashboard</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        {% for message in messages %}
+          <center><p>{{ message }}</p></center>
+        {% endfor %}
+        <a href="/logout">Logout</a>
+      </div>
+      <h1>Hello, {{ cur_user.first_name }}</h1>
+      <h2>Your Trip Schedules</h2>
+        <table>
+          <tr>
+            <th>Destination:</th>
+            <th>Travel Start Date:</th>
+            <th>Travel end Date:</th>
+            <th>Plan:</th>
+          </tr>
+          {% for trip in alltrips %}
+            {% if trip in mytrips %}
+            <tr>
+              <td><a href="/travel/show/{{ trip.id }}">{{ trip.destination }}</a></td>
+              <td>{{ trip.from_date }}</td>
+              <td>{{ trip.to_date }}</td>
+              <td>{{ trip.description }}</td>
+            </tr>
+            {% endif %}
+          {% endfor %}
+        </table>
+
+      <h2>Other User's Travel Plans</h2>
+      <table>
+        <tr>
+          <th>Name:</th>
+          <th>Destination:</th>
+          <th>Travel Start Date:</th>
+          <th>Travel end Date:</th>
+          <th>Do you want to join?:</th>
+        </tr>
+        {% for trip in alltrips %}
+          {% if trip not in mytrips %}
+            <tr>
+              <td>{{ trip.users.all.first.first_name }}</td>
+              <td><a href="/travel/show/{{ trip.id }}">{{ trip.destination }}</a></td>
+              <td>{{ trip.from_date }}</td>
+              <td>{{ trip.to_date }}</td>
+              <td><a href="/travel/update/{{ trip.id }}">Join</a></td>
+            </tr>
+        {% endif %}
+      {% endfor %}
+      </table>
+      <div class="footer">
+        <a href="/travel/new">Add Travel Plan</a>
+      </div>
+  </div>
+  </body>
+  <style media="screen">
+    .container{
+      height: 1000px;
+      width: 970px;
+      border: solid black 1px;
+    }
+      .header{
+        height: 25px;
+        width: 100%;
+        text-align: right;
+      }
+      table{
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    td, th{
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    tr:nth-child(even){
+      background-color: #dddddd;
+    }
+
+  </style>
+</html>
