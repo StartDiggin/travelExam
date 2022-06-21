@@ -4,7 +4,7 @@ cffi==1.11.0
 chardet==3.0.4
 Django==1.11.5
 idna==2.6
-numpy==1.13.3
+numpy==1.22.0
 pycparser==2.18
 pytz==2017.2
 requests==2.18.4
